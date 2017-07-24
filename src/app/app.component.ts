@@ -1,34 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-const USERS: User[] = [
-  { id: 1 , name: 'Kender Zambrano' },
-  { id: 2 , name: 'Estefany Rivero' },
-  { id: 3 , name: 'Nestor Rivero' },
-  { id: 4 , name: 'Rosalinda Rivero' },
-  { id: 5 , name: 'Minolis Gorrin' }
-];
+import { User } from './component/user/user';
+import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
-  //templateUrl: './app.component.html',
-  //styleUrls: ['./app.component.css'],
-  template: 
-  //
-    '<h1>{{title}}</h1> '+
-    '<h2>Users</h2>'+
-    '<ul class="users">'+
-      '<li *ngFor="let user of users" [class.selected]="user === selectedUser" (click)="onSelect(user)">'+
-        '<span class="badge">{{user.id}} - </span>{{user.name}}'+
-      '</li>'+
-    '</ul>'+
-    '<div *ngIf="selectedUser">'+  
-      '<h2>{{selectedUser.name}} details!</h2>'+
-      '<div><label>Code: </label> {{selectedUser.id}} </div>'+
-      '<div>'+
-        '<label>Name: </label>'+
-        '<input [(ngModel)]="selectedUser.name" placeholder="name"/>'+
-      '</div>'+
-    '</div>',
+  template: `
+    <h1>{{title}}</h1>
+    <h2>Users</h2>
+    <ul class="users">
+      <li *ngFor="let user of users" 
+        [class.selected]="user === selectedUser"
+        (click)="onSelect(user)">
+        <span class="badge">{{user.id}} - </span> {{user.name}}
+      </li>
+    </ul>
+    <user-detail [user]="selectedUser"></user-detail>
+    `,
   styles: [`
     .selected {
       background-color: #CFD8DC !important;
@@ -78,19 +66,26 @@ const USERS: User[] = [
       border-radius: 4px 0 0 4px;
     }
   `],
+  providers: [UserService]
 })
 
 export class AppComponent {
-  title = 'List users app';
-  users = USERS;
+  title: 'List users app';
+  users: User[];
   selectedUser: User;
 
+  constructor(private userService: UserService) { }
+
+  getUsers(): void{
+    //this.users = this.userService.getUsers();
+    this.userService.getUsers().then(users => this.users = users);
+  }
+
+  ngOnInit(): void {
+    this.getUsers();
+  }
+    
   onSelect(user: User): void {
     this.selectedUser = user;
-  };
-}
-
-export class User {
-  id: number;
-  name: string;
+  }
 }
