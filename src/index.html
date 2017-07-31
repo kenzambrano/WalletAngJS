@@ -11,13 +11,17 @@
 </head>
 <body ng-app="MyApp" ng-cloak>
 
-  <md-radio-button value="button">Button</md-radio-button>
+  <md-content>
+    <md-toolbar>
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <button md-button (click)="onClick"><a routerLink="/dashboard">Dashboard</a></button>
+        <button md-button (click)="onClick"><a routerLink="/users">Users</a></button>
+      </section>
+    </md-toolbar>
+  </md-content> 
+  <router-outlet></router-outlet>
 
-  <md-toolbar>
-      <span>User list</span>
-  </md-toolbar>
   <my-app></my-app>
-
 
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
