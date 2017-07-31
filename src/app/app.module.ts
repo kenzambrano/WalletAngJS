@@ -8,8 +8,9 @@ import { UserDetailComponent } from './component/user/user-detail.component';
 import { UsersComponent } from './component/user/user.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { UserService } from './service/user.service';
+import { SinginComponent } from './component/account/signin.component';
 
-import { AppRoutingModule } from './app-routing.module'
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { AppRoutingModule } from './app-routing.module'
     AppComponent,
     DashboardComponent,
     UserDetailComponent,
-    UsersComponent
+    UsersComponent,
+    SinginComponent
   ],
   providers: [ UserService ],
   bootstrap: [AppComponent]
